@@ -1,0 +1,362 @@
+{% load static%}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <style>
+        .body {
+            font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+
+        .menu-item {
+            padding: 10px;
+            border-bottom: #FAC000 1px solid;
+            margin: 0px;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            background-color: #d8d8d8;
+        }
+
+        .bg-navbar {
+            background-color: #0057FA;
+        }
+
+        .titulo {
+            border-bottom: 3px solid #FAC000;
+        }
+    </style>
+    <link rel="icon" href="{% static "/img/water_drop_black_48dp.ico"%}" type="image/x-icon"/>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <title>Controle de Fluxo</title>
+</head>
+
+<body>
+    <div class="pos-f-t fixed-top">
+        <div class="collapse bg-white" id="navbarToggleExternalContent">
+            <div class="py-4">
+                <div class="p-3">
+                    <h4 class="">Controle de Fluxo</h4>
+                    <span class="text-muted">Todos Os Gastos Num Lugar Só.</span>
+                </div>
+                <hr>
+                <p class="menu-item" id="sparte-um">Sobre o Projeto</p>
+                <p class="menu-item" id="sparte-dois">DashBoard</p>
+                <p class="menu-item" id="sparte-tres">Sobre Nós</p>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-navbar">
+            <button id='button-menu' class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+    </div>
+    <div class="container conteudo">
+        <div class="col-12">
+            <h2 class="text-center mt-3 titulo" style="padding-top: 70px;" id="parte-um">
+                Controle De Fluxo
+            </h2>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-6 mt-4">
+                <div class="imagem-apresentacao-um">
+                    <img src="{% static "/img/R.png"%}" alt="img" style="margin: auto; width: 80%; height: auto">
+                </div>
+            </div>
+            <div class="col-sm-6 mt-4">
+                <p>A água é um recurso natural de extrema importância para a humanidade, sendo responsável pela vida em todo o planeta. Porém grandes quantidades de água são desperdiçadas todos os dias em simples tarefas do cotidiano, devido à falta de responsabilidade sustentável e consciência ambiental.</p>
+                <p>Segundo a ONU, cerca de 70% da superfície do nosso planeta é constituída por água, mas apenas 3% é água doce, ainda assim grande parte dela está concentrada em geleiras e calotas polares, restando apenas um terço disponível para uso. Sendo assim a quantidade de água potável e acessível é assustadoramente pequena, mas o desperdício desse recurso tão essencial é muito grande.</p>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-6 mt-4">
+                <p>Com essa criação do projeto de automação residencial, concluímos que construímos um protótipo onde os dados do mesmo podem ser integrados num banco de dados local via protocolo MQTT, além de que o projeto foi utilizado como um complexo de estudo, onde utilizamos como por exemplo, linguagens de programação (Python, Json, C e C++, html, CSS), conhecimento de banco de dados (Mysql) e comunicação de máquinas (MQTT). Para projetos futuros pretendemos utilizar o projeto feito, mas com melhorias, sendo elas, mudança quanto ao Hardware onde não dependesse de uma máquina local, como foi feito em um notebook.</p>
+            </div>
+            <div class="col-sm-6 mt-4">
+                <div class="imagem-apresentacao-dois">
+                    <img src="{% static "/img/p.png"%}" alt="img" style="margin-left: 40px; width: 80%; height: auto">
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center titulo" id="parte-dois">DashBoard</h1>
+            </div>
+            <div class="col-12">
+                <p class="text-center">
+                    Aqui você recebe todas as informações do seu sensor de fluxo!❤️
+                </p>
+            </div>
+            <div class="col-12">
+                <div class="card mb-3">
+                    <h6 class="card-header">STATUS</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6" style="border-right: #FAC000 2px solid;">
+                                    <h2 id="status">Carregando</h2>
+                                </div>
+                                <div class="col-6">
+                                    <div id="fluxo-atual" style="width: 200px; height: 110px;"></div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4>Consumo Atual</h4>
+                                    <p>Consumo Mensal: <span id="consumo-mensal" class="text-primary">0</span> L/M</p>
+                                    <p>Consumo Diário: <span id="consumo-diario" class="text-primary">0</span> L/M</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-6">
+                                    <h4>Mensagem</h4>
+                                    <p id='mensagem'>Carregando</p>
+                                </div>
+                                <div class="col-6">
+                                    <div id="consumo-bom" style="display: none;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="70px" viewBox="0 0 24 24" width="70px" fill="green"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M13.11 5.72l-.57 2.89c-.12.59.04 1.2.42 1.66.38.46.94.73 1.54.73H20v1.08L17.43 18H9.34c-.18 0-.34-.16-.34-.34V9.82l4.11-4.1M14 2L7.59 8.41C7.21 8.79 7 9.3 7 9.83v7.83C7 18.95 8.05 20 9.34 20h8.1c.71 0 1.36-.37 1.72-.97l2.67-6.15c.11-.25.17-.52.17-.8V11c0-1.1-.9-2-2-2h-5.5l.92-4.65c.05-.22.02-.46-.08-.66-.23-.45-.52-.86-.88-1.22L14 2zM4 9H2v11h2c.55 0 1-.45 1-1v-9c0-.55-.45-1-1-1z"/></svg>
+                                    </div>
+                                    <div id="consumo-ruim" style="display: none;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="70px" viewBox="0 0 24 24" width="70px" fill="red"><path d="M24 24H0V0h24v24z" fill="none"/><path d="M10.89 18.28l.57-2.89c.12-.59-.04-1.2-.42-1.66-.38-.46-.94-.73-1.54-.73H4v-1.08L6.57 6h8.09c.18 0 .34.16.34.34v7.84l-4.11 4.1M10 22l6.41-6.41c.38-.38.59-.89.59-1.42V6.34C17 5.05 15.95 4 14.66 4h-8.1c-.71 0-1.36.37-1.72.97l-2.67 6.15c-.11.25-.17.52-.17.8V13c0 1.1.9 2 2 2h5.5l-.92 4.65c-.05.22-.02.46.08.66.23.45.52.86.88 1.22L10 22zm10-7h2V4h-2c-.55 0-1 .45-1 1v9c0 .55.45 1 1 1z"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div id="dados-sensor" class="grafico-litros"></div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <!--<div class="col-12">
+                <div id="dados-sensor" class="grafico-litros"></div>
+            </div>-->
+        </div>
+    </div>
+    <footer class="bg-light text-center text-lg-start" style="border-top: rgb(180, 180, 180) solid 2px;">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="text-center titulo" id="parte-tres">Sobre Nós</h3>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-4">
+                    <div style="border-radius: 100%;overflow: hidden; background-size: cover; background-position: center; width: 100px; height: 100px; background-image: url('{% static "/img/guilherme.jpeg"%}');"></div>
+                </div>
+                <div class="col-8 mt-3">
+                    <p>
+                        Meu nome é Guilherme tenho 19 anos, estou cursando engenharia da computação, pretendo trabalhar mais com projetos do que com programação em si e gostaria também de ir mais para o lado de desenvolver jogos.
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <div class="row mt-3">
+                <div class="col-4">
+                    <div style="border-radius: 100%;overflow: hidden; background-size: cover; background-position: center; width: 100px; height: 100px; background-image: url('{% static "/img/thiago.jpeg"%}');"></div>
+                </div>
+                <div class="col-8 mt-3">
+                    <p>
+                         Sou o Thiago, tenho 19 anos estou cursando engenharia da computação. Atualmente estou trabalhando no setor de digital e cada vezes mais me aprimorando na área, atualmente só tenho conhecimento em linguagem C por conta da faculdade, mas futuramente pretendo fazer alguns cursos de python e outras linguagens para me especializar em programação
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <div class="row mt-3">
+                <div class="col-4">
+                    <div style="border-radius: 100%;overflow: hidden; background-size: cover; background-position: center; width: 100px; height: 100px; background-image: url('{% static "/img/gustavo.jpeg"%}');"></div>
+                </div>
+                <div class="col-8 mt-3">
+                    <p>
+                        sou Gustavo tenho 19 anos e faço engenharia da computação no Senac. Estou no segundo semestre e estou me especializando em banco de dados, onde este projeto me ajudou muito sobre conhecimento de MySql
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <div class="row mt-3">
+                <div class="col-4">
+                    <div style="border-radius: 100%;overflow: hidden; background-size: cover; background-position: center; width: 100px; height: 100px; background-image: url('{% static "/img/Fregoneze.jpeg"%}');"></div>
+                </div>
+                <div class="col-8 mt-3">
+                    <p>
+                        Meu nome é Lucas Fregoneze Debastiani, tenho 19 anos, curso engenharia da computação no Senac. Desde pequeno gosto de mexer no computador e tenho curiosidade de pesquisar sobre as novas tendências da humanidade. Sou uma pessoa comunicativa e esforçada, sempre pensando no próximo. Tenho o sonho de ser bem sucedido profissionalmente,mantendo uma relação saudável comigo mesmo
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <div class="row mt-3">
+                <div class="col-4">
+                    <div style="border-radius: 100%;overflow: hidden; background-size: cover; background-position: center; width: 100px; height: 100px; background-image: url('{% static "/img/AMMS_1dd7ad69b756ad4df6d1d8ce87028535.jpg"%}');"></div>
+                </div>
+                <div class="col-8 mt-3">
+                    <p>
+                        Sou o Lucas, Apaixonado por Computação 🐍
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © <a class="text-dark">Senac Campus Santo Amaro</a>
+        </div>
+    </footer>
+    <script>
+
+        $("#sparte-um").click(function () {
+            $("#button-menu").click()
+            $('html, body').animate({
+                scrollTop: parseInt($("#parte-um").offset().top - 70)
+            }, 1000);
+        });
+        $("#sparte-dois").click(function () {
+            $("#button-menu").click()
+            $('html, body').animate({
+                scrollTop: parseInt($("#parte-dois").offset().top - 70)
+            }, 1000);
+        });
+        $("#sparte-tres").click(function () {
+            $("#button-menu").click()
+            $('html, body').animate({
+                scrollTop: parseInt($("#parte-tres").offset().top - 70)
+            }, 1000);
+        });
+
+        // grafico / requisição ajax
+
+        google.charts.load('current', { packages: ['corechart', 'line'] });
+        google.charts.setOnLoadCallback(drawCurveTypes);
+
+        function drawCurveTypes() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('number', 'X');
+            data.addColumn('number', 'Lts.');
+
+            data.addRows([
+                [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0],
+                [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0],
+                [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0],
+                [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0],
+                [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0],
+                [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0],
+            ]);
+
+            var options = {
+                hAxis: {
+                    title: 'Tempo (s)'
+                },
+                vAxis: {
+                    title: 'Litros por Minuto'
+                },
+                series: {
+                    1: { curveType: 'function' }
+                },
+                width: '100%',
+                height: 400,
+                curveType: 'function',
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('dados-sensor'));
+            chart.draw(data, options);
+
+            setInterval(
+                function () {
+                    $.ajax({
+                        url: '/get-data/arduino/',
+                        dataType: "json",
+                        success: function (response) {
+                            //console.log(data)
+                            //console.log(chart)
+                            for(let i = 0; i < 60; i ++){
+                                data.removeRow(0)
+                            }
+                            for(let i = 0; i < 60; i ++){
+                                data.addRow(response['data'].slice(0).reverse()[i])
+                            }
+                            //data.addRow(response['data']);
+                            chart.draw(data, options);
+                        }
+                    })
+                }, 100);
+        }
+        // fluxo atual
+        google.charts.load('current', { 'packages': ['gauge'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Label', 'Value'],
+                ['L / M', 0],
+            ]);
+
+            var options = {
+                width: 400, height: 120,
+                redFrom: 30, redTo: 100,
+                yellowFrom: 20, yellowTo: 30,
+                minorTicks: 5
+            };
+
+            var chart = new google.visualization.Gauge(document.getElementById('fluxo-atual'));
+
+            chart.draw(data, options);
+
+            setInterval(
+                function () {
+                    $.ajax({
+                        url: '/get-data/arduino/',
+                        dataType: "json",
+                        success: function (response) {
+                            if (response['data'][0][1] == 0) {
+                                $('#status').text('Desativado')
+                                $('#status').removeClass('text-success')
+                                $('#status').addClass('text-danger')
+                            } else {
+                                $('#status').text('Ativo')
+                                $('#status').removeClass('text-danger')
+                                $('#status').addClass('text-success')
+                            }
+                            if(response['consumo_diario'] > 60){
+                                $('#consumo-bom').hide()
+                                $('#consumo-ruim').show()
+                            } else{
+                                $('#consumo-bom').show()
+                                $('#consumo-ruim').hide()
+                            }
+                            $('#consumo-mensal').text(response['consumo_mensal'])
+                            $('#consumo-diario').text(response['consumo_diario'])
+                            $('#mensagem').text(response['mensagem']['mensagem'])
+                            data.setValue(0, 1, response['data'][0][1]);
+                            chart.draw(data, options);
+                        }
+                    })
+                }, 100);
+        }
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
